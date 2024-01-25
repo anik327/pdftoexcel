@@ -11,9 +11,8 @@ EXCEL_HEADER = ["JOB DOCKET NO.", "JOB DOCKET DATE", "JOB NAME", "ORD.QTY", "PRI
 # Creates a list of PDF file names
 pdfFileList = []
 FileList = os.listdir(os.getcwd())
-pdfRegx = re.compile(r'[^\\]*\.pdf')
 for file in FileList:
-    if (pdfRegx.search(file)):
+    if (PDF_REGEX.search(file)):
         pdfFileList.append(file)
 
 data = []
@@ -26,7 +25,7 @@ for pdf in pdfFileList:
             extractedData = pageObj.extract_text()
 
             jobDocketNoExtracRegex = re.compile(r'(JC\/\d\d-\d\d\/\d\d\d\d)')
-            jobDockNoMatch = jobDocketNoExtracRegex.search(extractedData).group()
+            jobDockNoMatch = jobDocketNoExtracRegex.search(extractedData)
 
             jobDocketDateExtracRegex = re.compile(r'JOB DOCKET DATE (\d{2}\/\d{2}\/\d{4})')
             jobDocketDateMatch = jobDocketDateExtracRegex.search(extractedData)
